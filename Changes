@@ -42,7 +42,7 @@
   - bump version of ElasticSearch.pm prereq
   - tested with ES 0.20.0RC1
   - added $model->es_version, returns a version object
-  - use JSON instead of JSON::XS as JSON will delegate to JSON::XS automatically if installed
+  - use JSON instead of Cpanel::JSON::XS as JSON will delegate to Cpanel::JSON::XS automatically if installed
 
 0.1.2 - 2012-08-24
   - requires at least ES 0.19.2 which has a much more stable API
@@ -74,7 +74,7 @@
   - bulk actions accept raw hashrefs for better performance
 
 0.0.4 - 2011-12-12
-  - deflate boolean values to JSON::XS::true/false
+  - deflate boolean values to Cpanel::JSON::XS::true/false
 
 0.0.3 - 2011-11-11
   - fall back to the _id property in sub get_id_property
