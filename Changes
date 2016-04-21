@@ -1,4 +1,6 @@
 {{$NEXT}}
+
+1.0.1     2016-04-21 16:22:35+01:00 Europe/London
   - fix DEMOLISH ElasticSearchX::Model::Bulk (Matt Trout)
 
 1.0.0     2016-04-13 09:55:00-04:00 America/Toronto
