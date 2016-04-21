@@ -23,6 +23,7 @@ on 'build' => sub {
 };
 
 on 'test' => sub {
+  requires "ExtUtils::MakeMaker" => "0";
   requires "File::Find" => "0";
   requires "File::Spec" => "0";
   requires "File::Temp" => "0";
@@ -32,8 +33,12 @@ on 'test' => sub {
   requires "Module::Build" => "0.3601";
   requires "MooseX::Types::Common::String" => "0";
   requires "Test::MockObject::Extends" => "0";
-  requires "Test::More" => "0.88";
+  requires "Test::More" => "0";
   requires "Test::Most" => "0";
+};
+
+on 'test' => sub {
+  recommends "CPAN::Meta" => "2.120900";
 };
 
 on 'configure' => sub {
@@ -45,5 +50,4 @@ on 'develop' => sub {
   requires "Test::Kwalitee" => "1.21";
   requires "Test::Pod" => "1.41";
   requires "Test::Pod::Coverage" => "1.08";
-  requires "version" => "0.9901";
 };
