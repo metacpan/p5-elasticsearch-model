@@ -1,6 +1,6 @@
 package ElasticSearchX::Model;
 
-# ABSTRACT: Extensible and flexible model for ElasticSearch based on Moose
+# ABSTRACT: Extensible and flexible model for Elasticsearch based on Moose
 use Moose 2.02 ();
 use Moose::Exporter ();
 use ElasticSearchX::Model::Index;
@@ -82,16 +82,16 @@ __END__
 
 =head1 DESCRIPTION
 
-This is an ElasticSearch to Moose mapper which hides the REST api
-behind object-oriented api calls. ElasticSearch types and indices
+This is an Elasticsearch to Moose mapper which hides the REST api
+behind object-oriented api calls. Elasticsearch types and indices
 are defined using Moose classes and a flexible DSL.
 
-Deployment statements for ElasticSearch can be build dynamically
-using these classes. Results from ElasticSearch inflate automatically
+Deployment statements for Elasticsearch can be build dynamically
+using these classes. Results from Elasticsearch inflate automatically
 to the corresponding Moose classes. Furthermore, it provides
 sensible defaults.
 
-The search API makes the tedious task of building ElasticSearch queries
+The search API makes the tedious task of building Elasticsearch queries
 a lot easier.
 
 B<< The L<ElasticSearchX::Model::Tutorial> is probably the best place
@@ -107,7 +107,7 @@ consider it being stable in terms of the API and implementation details. >>
 =head2 index
 
  index twitter => ( namespace => 'MyNamespace', traits => ['MyTrait'] );
- 
+
  index facebook => ( types => [qw(FB::User FB::Friends)] );
 
 Adds an index to the model. By default there is a C<default>
@@ -122,7 +122,7 @@ See L<ElasticSearchX::Model::Index/ATTRIBUTES> for available options.
 =head2 filter
 
  analyzer lowercase => ( tokenizer => 'keyword',  filter   => 'lowercase' );
- 
+
  tokenizer camelcase => (
      type => 'pattern',
      pattern => "([^\\p{L}\\d]+)|(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)|(?<=[\\p{L}&&[^\\p{Lu}]])(?=\\p{Lu})|(?<=\\p{Lu})(?=\\p{Lu}[\\p{L}&&[^\\p{Lu}]])"
@@ -178,10 +178,10 @@ Returns an L<ElasticSearchX::Model::Index> object.
 
 =head2 deploy
 
-C<deploy> pushes the mapping to the ElasticSearch server. It will
+C<deploy> pushes the mapping to the Elasticsearch server. It will
 automatically try to upgrade your mapping if the types already
 exists. However, this might not be possible in case you changes
-a field from one data type to another and ElasticSearch cannot
+a field from one data type to another and Elasticsearch cannot
 figure out how to translate it. In this case C<deploy> will
 throw an error message.
 
@@ -194,8 +194,8 @@ B<< This will delete all the data in your indices. >>
 
  if($model->es_version > 0.02) { ... }
 
-Returns the L<version> number of the ElasticSearch server you are currently
-connected to. ElasticSearch uses Semantic Versioning. However, release candidates
+Returns the L<version> number of the Elasticsearch server you are currently
+connected to. Elasticsearch uses Semantic Versioning. However, release candidates
 have a special syntax. For example, the version 0.20.0.RC1 would be parsed
 as 0.020_000_001.
 

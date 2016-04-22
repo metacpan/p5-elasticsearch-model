@@ -7,18 +7,18 @@ __END__
 
 =head1 INTRODUCTION
 
-In this tutorial we are going to walk through the ElasticSearch example
+In this tutorial we are going to walk through the Elasticsearch example
 on L<http://www.elasticsearch.org/>. Go ahead and read it first,
-this gives you a good insight into how ElasticSearch works and how
+this gives you a good insight into how Elasticsearch works and how
 L<ElasticSearchX::Model> can help to make it even more elastic.
 
 =head1 DOCUMENTS
 
-ElasticSearch is a document-based storage system. Even though it states
-that it is schema free, it is not recommended to use ElasticSearch
-without defining a proper schema or mapping, as ElasticSearch calls it.
+Elasticsearch is a document-based storage system. Even though it states
+that it is schema free, it is not recommended to use Elasticsearch
+without defining a proper schema or mapping, as Elasticsearch calls it.
 
-L<ElasticSearchX::Model::Document> takes care of that. The ElasticSearch example
+L<ElasticSearchX::Model::Document> takes care of that. The Elasticsearch example
 consists of two types: C<tweet> and C<user>. The C<tweet> type
 contains the properties C<user>, C<post_date> and C<message>. The C<user>
 type contains only the C<name> property. Using L<ElasticSearchX::Model::Document>
@@ -27,16 +27,16 @@ this looks like:
  package MyModel::Tweet;
  use Moose;
  use ElasticSearchX::Model::Document;
- 
+
  has id        => ( is => 'ro', id => [qw(user post_date)] );
  has user      => ( is => 'ro', isa => 'Str' );
  has post_date => ( is => 'ro', isa => 'DateTime', required => 1, default => sub { DateTime->now } );
  has message   => ( is => 'rw', isa => 'Str', index => 'analyzed' );
- 
+
  package MyModel::User;
  use Moose;
  use ElasticSearchX::Model::Document;
- 
+
  has nickname => ( is => 'ro', isa => 'Str', id => 1 );
  has name     => ( is => 'ro', isa => 'Str' );
 
@@ -52,7 +52,7 @@ Also, you don't have to keep track of incrementing numerical document ids.
 In the C<User> class, the C<nickname> attribute acts as id. Since it does not
 depend on the value of any other attribute, the id matches the nickname.
 
-ElasticSearch will assign a random id to the document if there is
+Elasticsearch will assign a random id to the document if there is
 no id attribute.
 
 =head1 MAPPING
@@ -62,10 +62,10 @@ database. And each type belongs to an index, which corresponds to a database.
 
 Modeling indices and types with L<ElasticSearchX::Model> is pretty easy
 and the types have actually already been built: the meta objects of the
-document classes describe the types. They include all the necessary 
+document classes describe the types. They include all the necessary
 information to build a type mapping. You can even use L<MooseX::Types::Structured>
 to build deepy nested structures that will be translated to C<object>
-properties in ElasticSearch. L<DateTime> attributes become a C<Date> type
+properties in Elasticsearch. L<DateTime> attributes become a C<Date> type
 and so on.
 
 Indices are defined in a model class:
@@ -73,7 +73,7 @@ Indices are defined in a model class:
  package MyModel;
  use Moose;
  use ElasticSearchX::Model;
- 
+
  index twitter => ( namespace => 'MyModel' );
 
 This is all you need to define the index and its types. The namespace option
@@ -87,12 +87,12 @@ model class. You can also load types explicitly by defining a C<types> option:
 Make sure that the classes are loaded. See L<ElasticSearchX::Model::Index> for all
 the available options.
 
-To deploy the indices and mappings to ElasticSearch, simply call
+To deploy the indices and mappings to Elasticsearch, simply call
 
  my $model = MyModel->new;
  $model->deploy;
 
-This will try to connect to an ElasticSearch instance on 127.0.0.1:9200.
+This will try to connect to an Elasticsearch instance on 127.0.0.1:9200.
 See L<ElasticSearchX::Model/es> for more information.
 
 =head1 INDEXING
@@ -100,7 +100,7 @@ See L<ElasticSearchX::Model/es> for more information.
 Indexing describes the process of adding documents to types.
 
  use DateTime;
- 
+
  my $twitter = $model->index('twitter');
  my $timestamp = DateTime->now;
  my $tweet = $twitter->type('tweet')->put({
@@ -113,8 +113,8 @@ Indexing describes the process of adding documents to types.
 
 The first parameter contains the property/value pairs. The C<post_date>
 property is special because it is a L<DateTime> object. Objects are
-being deflated prior to insertion. This is handled by 
-L<MooseX::Attribute::Deflator> and is configured in 
+being deflated prior to insertion. This is handled by
+L<MooseX::Attribute::Deflator> and is configured in
 L<ElasticSearchX::Model::Document::Types>. You can easily add deflators
 for other objects.
 
@@ -124,7 +124,7 @@ build values from required attributes. If there is no builder or default,
 it will throw an exception.
 
 The second parameter to L<ElasticSearchX::Model::Document::Set/put> tells
-ElasticSearch to refresh the index immediately. Otherwise it can
+Elasticsearch to refresh the index immediately. Otherwise it can
 take up to one second for the server to refresh and the subsequent
 call to L<ElasticSearchX::Model::Document::Set/count> will return C<0>.
 
@@ -149,14 +149,14 @@ again. Thus, C<< $tweet_copy->post_date >> is a DateTime object
 again.
 
 If you don't really care about objects or need extra speed, you can set
-L<ElasticSearchX::Model::Documents::Set/inflate> to C<0>. This will return 
-the raw response from ElasticSearch.
+L<ElasticSearchX::Model::Documents::Set/inflate> to C<0>. This will return
+the raw response from Elasticsearch.
 
  $twitter->type('tweet')->raw->get($tweet->id);
 
 =head1 SEARCHING AND SCROLLING
 
-ElasticSearch is I<You know, for Search>. L<ElasticSearchX::Model::Set> tries
+Elasticsearch is I<You know, for Search>. L<ElasticSearchX::Model::Set> tries
 to help you with its very verbose query syntax.
 
  my @tweets = $twitter->type('tweet')->filter({
@@ -179,7 +179,7 @@ skip the object inflation and give you the raw HashRef.
 
 =head1 REINDEXING
 
-ElasticSearch allows you to create aliases for each index. This makes it easy
+Elasticsearch allows you to create aliases for each index. This makes it easy
 to reindex to a new index, and change the alias once the reindexing is done,
 to the new index. This is how you do it with ElasticSearchX::Model.
 
@@ -189,7 +189,7 @@ to the new index. This is how you do it with ElasticSearchX::Model.
 
  index twitter => ( namespace => 'MyModel', alias_for => 'twitter_v1' );
 
-This will create an index called C<twitter_v1> in ElasticSearch and an
+This will create an index called C<twitter_v1> in Elasticsearch and an
 alias C<twitter>. To reindex data, you simply add a second index with
 a different name but the same document classes:
 
@@ -198,7 +198,7 @@ a different name but the same document classes:
 Now deploy the new index and start reindexing your data to the new index:
 
  $model->deploy;
- 
+
  my $old = $model->index('twitter');
  my $new = $model->index('twitter_v2');
  my $iterator = $old->type('tweet')->size(1000)->scroll;
