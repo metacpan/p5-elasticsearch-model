@@ -4,7 +4,7 @@ use lib qw(t/lib);
 use MyModel;
 use Test::Most;
 use DateTime;
-use JSON;
+use JSON::MaybeXS;
 
 my $model     = MyModel->testing;
 my $twitter   = $model->index('twitter');

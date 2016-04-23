@@ -6,7 +6,7 @@ use DateTime::Format::ISO8601;
 use MooseX::Attribute::Deflator;
 use MooseX::Attribute::Deflator::Moose;
 use DateTime;
-use JSON;
+use JSON::MaybeXS qw( decode_json encode_json );
 use Scalar::Util qw(blessed);
 use MooseX::Types::ElasticSearch qw(:all);
 

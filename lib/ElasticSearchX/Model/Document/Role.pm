@@ -1,11 +1,11 @@
 package ElasticSearchX::Model::Document::Role;
 
 use Moose::Role;
-use ElasticSearchX::Model::Util ();
-use JSON;
-use Digest::SHA1;
-use List::MoreUtils ();
+
 use Carp;
+use Digest::SHA1;
+use ElasticSearchX::Model::Util ();
+use List::MoreUtils ();
 
 sub _does_elasticsearchx_model_document_role {1}
 
