@@ -1,4 +1,6 @@
 {{$NEXT}}
+
+1.0.2     2016-04-23 13:52:29+01:00 Europe/London
   - Move from JSON.pm to JSON::MaybeXS
 
 1.0.1     2016-04-21 16:22:35+01:00 Europe/London
