@@ -141,9 +141,9 @@ field from being stored redundantly.
 =head2 source_only
 
 A C<source_only> attribute is not added to the type mapping,
-but it's value is included in the C<_source> of a document.
+but its value is included in the C<_source> of a document.
 This is helpful if you don't want to index the value of this
-attribute in ElasticSearch, but still want to be able to access
+attribute in Elasticsearch, but still want to be able to access
 its value.
 
 =head2 timestamp
