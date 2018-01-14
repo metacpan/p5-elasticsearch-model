@@ -1,7 +1,7 @@
 package ElasticSearchX::Model::Scroll;
 
 use Moose;
-use Search::Elasticsearch::Scroll;
+use Search::Elasticsearch::Client::6_0::Scroll;
 
 has scroll => ( is => 'ro', isa => 'Str', required => 1, default => '1m' );
 
@@ -14,7 +14,7 @@ has set => (
 
 has _scrolled_search => (
     is         => 'ro',
-    isa        => 'Search::Elasticsearch::Scroll',
+    isa        => 'Search::Elasticsearch::Client::6_0::Scroll',
     lazy_build => 1,
     handles    => {
         _next     => 'next',
@@ -30,7 +30,7 @@ has qs => (
 
 sub _build__scrolled_search {
     my $self = shift;
-    Search::Elasticsearch::Scroll->new(
+    Search::Elasticsearch::Client::6_0::Scroll->new(
         {
             es     => $self->set->es,
             body   => $self->set->_build_query,
@@ -85,7 +85,7 @@ from.
 
 =head2 max_score
 
-Delegates to L<Elasticsearch::Scroll>.
+Delegates to L<Search::Elasticsearch::Client::6_0::Scroll>.
 
 =head2 next
 

@@ -1,11 +1,11 @@
 package ElasticSearchX::Model::Bulk;
 
-use Search::Elasticsearch::Bulk;
+use Search::Elasticsearch::Client::6_0::Bulk;
 use Moose;
 
 has stash => (
     is         => 'ro',
-    isa        => "Search::Elasticsearch::Bulk",
+    isa        => "Search::Elasticsearch::Client::6_0::Bulk",
     handles    => { stash_size => '_buffer_count', commit => "flush" },
     lazy_build => 1,
 );
@@ -98,12 +98,13 @@ __END__
 
 =head1 DESCRIPTION
 
-This class is a wrapper around L<Search::Elasticsearch::Bulk> which adds
-some convenience. By specifiying a L</size> you set the maximum
-number of documents that are processed in one request. You can either
-L</put> or L</delete> documents. Once the C<$bulk> object is out
-of scope, it will automatically commit its L</stash>. Call L</clear>
-if before if you don't want that to happen.
+This class is a wrapper around
+L<Search::Elasticsearch::Client::6_0::Bulk> which adds some
+convenience. By specifiying a L</size> you set the maximum number of
+documents that are processed in one request. You can either L</put> or
+L</delete> documents. Once the C<$bulk> object is out of scope, it
+will automatically commit its L</stash>. Call L</clear> if before if
+you don't want that to happen.
 
 =head1 ATTRIBUTES
 
