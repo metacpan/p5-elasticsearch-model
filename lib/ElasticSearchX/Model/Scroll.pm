@@ -1,7 +1,8 @@
 package ElasticSearchX::Model::Scroll;
 
 use Moose;
-use Search::Elasticsearch::Scroll;
+
+use ElasticSearchX::Model::Document::Types qw(ESScroll);
 
 has scroll => ( is => 'ro', isa => 'Str', required => 1, default => '1m' );
 
@@ -14,7 +15,7 @@ has set => (
 
 has _scrolled_search => (
     is         => 'ro',
-    isa        => 'Search::Elasticsearch::Scroll',
+    isa        => ESScroll,
     lazy_build => 1,
     handles    => {
         _next     => 'next',
@@ -30,15 +31,12 @@ has qs => (
 
 sub _build__scrolled_search {
     my $self = shift;
-    Search::Elasticsearch::Scroll->new(
-        {
-            es     => $self->set->es,
-            body   => $self->set->_build_query,
-            scroll => $self->scroll,
-            index  => $self->index->name,
-            type   => $self->type->short_name,
-            %{ $self->qs || {} },
-        }
+    $self->set->es->scroll_helper(
+        body   => $self->set->_build_query,
+        scroll => $self->scroll,
+        index  => $self->index->name,
+        type   => $self->type->short_name,
+        %{ $self->qs || {} },
     );
 }
 

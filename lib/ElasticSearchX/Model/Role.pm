@@ -50,7 +50,7 @@ sub deploy {
         }
         if ( my $alias = $index->alias_for ) {
             my @aliases = keys %{
-                $self->es->indices->get_aliases(
+                $self->es->indices->get_alias(
                     index  => $index->name,
                     ignore => [404]
                     )
