@@ -1,11 +1,12 @@
 package ElasticSearchX::Model::Bulk;
 
-use Search::Elasticsearch::Bulk;
 use Moose;
+
+use ElasticSearchX::Model::Document::Types qw(ESBulk);
 
 has stash => (
     is         => 'ro',
-    isa        => "Search::Elasticsearch::Bulk",
+    isa        => ESBulk,
     handles    => { stash_size => '_buffer_count', commit => "flush" },
     lazy_build => 1,
 );
@@ -98,7 +99,7 @@ __END__
 
 =head1 DESCRIPTION
 
-This class is a wrapper around L<Search::Elasticsearch::Bulk> which adds
+This class is a wrapper around L<Search::Elasticsearch>'s bulk helper which adds
 some convenience. By specifiying a L</size> you set the maximum
 number of documents that are processed in one request. You can either
 L</put> or L</delete> documents. Once the C<$bulk> object is out

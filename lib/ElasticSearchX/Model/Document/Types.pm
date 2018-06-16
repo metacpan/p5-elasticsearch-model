@@ -9,6 +9,7 @@ use DateTime;
 use JSON::MaybeXS qw( decode_json encode_json );
 use Scalar::Util qw(blessed);
 use MooseX::Types::ElasticSearch qw(:all);
+use Moose::Util::TypeConstraints qw(duck_type);
 
 use MooseX::Types -declare => [
     qw(
@@ -16,6 +17,8 @@ use MooseX::Types -declare => [
         Types
         TimestampField
         TTLField
+        ESBulk
+        ESScroll
         )
 ];
 
@@ -25,6 +28,8 @@ use Sub::Exporter -setup => {
             Location
             QueryType
             ES
+            ESBulk
+            ESScroll
             Type
             Types
             TimestampField
@@ -52,6 +57,19 @@ coerce TimestampField, from Str, via {
 coerce TimestampField, from HashRef, via {
     { enabled => 1, %$_ };
 };
+
+subtype ESScroll,
+    as duck_type([qw(
+        next
+        total
+        max_score
+    )]);
+
+subtype ESBulk,
+    as duck_type([qw(
+        _buffer_count
+        flush
+    )]);
 
 subtype TTLField,
     as Dict [

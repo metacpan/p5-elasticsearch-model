@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+ - Made compatible with modern Search::Elasticsearch (6.00)
+
 1.0.3     2018-04-20 14:54:04+02:00 Europe/Oslo
 
  - This module is now officially deprecated
