@@ -1,6 +1,8 @@
 {{$NEXT}}
 
- - Made compatible with modern Search::Elasticsearch (6.00)
+ - Made compatible with modern Search::Elasticsearch (6.00).  Note that this
+   only makes it compatible with the new client, not new server versions.
+   Some features will fail to work with Elasticsearch 5.0 or newer.
 
 1.0.3     2018-04-20 14:54:04+02:00 Europe/Oslo
 
