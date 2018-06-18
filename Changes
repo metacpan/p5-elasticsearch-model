@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+2.0.0     2018-06-18 13:59:35-04:00 America/Toronto
+
  - Made compatible with modern Search::Elasticsearch (6.00).  Note that this
    only makes it compatible with the new client, not new server versions.
    Some features will fail to work with Elasticsearch 5.0 or newer.
