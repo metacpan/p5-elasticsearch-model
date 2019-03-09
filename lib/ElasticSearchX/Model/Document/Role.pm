@@ -3,7 +3,6 @@ package ElasticSearchX::Model::Document::Role;
 use Moose::Role;
 
 use Carp;
-use Digest::SHA1;
 use ElasticSearchX::Model::Util ();
 use List::MoreUtils ();
 
