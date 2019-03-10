@@ -40,6 +40,7 @@ on 'test' => sub {
   requires "Test::MockObject::Extends" => "0";
   requires "Test::More" => "0";
   requires "Test::Most" => "0";
+  requires "blib" => "1.01";
   requires "lib" => "0";
   requires "perl" => "5.006";
 };
