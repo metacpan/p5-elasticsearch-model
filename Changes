@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+2.0.1     2019-03-10 22:00:52+01:00 Europe/Amsterdam
+
 2.0.1     2019-03-10 21:46:00+02:00 Europe/Amsterdam
 
  - Use Digest::SHA instead of Digest::SHA1 (Graham Knop)
