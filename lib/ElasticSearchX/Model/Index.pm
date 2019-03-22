@@ -167,7 +167,7 @@ derived from the class name by lowercasing the last name segment
 
 An ArrayRef of traits which are applied to the index object.
 This is useful if you want to alter the behaviour of methods
-like L</deploy>.
+like L<deploy|ElasticSearchX::Model/"deploy">.
 
 =head2 model
 
